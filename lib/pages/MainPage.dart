@@ -7,7 +7,7 @@ import 'package:flutter_educational_shop/pages/AppPage.dart';
 import 'package:flutter_educational_shop/services/appwrite_service.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   _MainPageState createState() => _MainPageState();

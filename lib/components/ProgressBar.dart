@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProgressBarExample extends StatefulWidget {
-  const ProgressBarExample({Key? key}) : super(key: key);
+  const ProgressBarExample({super.key});
 
   @override
   _ProgressBarExampleState createState() => _ProgressBarExampleState();
