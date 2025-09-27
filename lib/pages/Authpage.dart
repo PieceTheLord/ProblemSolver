@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart' hide Row;
 import 'package:flutter_educational_shop/pages/AppPage.dart';
-import 'package:flutter_educational_shop/services/appwrite_service.dart';
+import 'package:flutter_educational_shop/features/appwrite_service.dart';
+import 'package:flutter_educational_shop/store/states.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Authpage extends StatefulWidget {
+class Authpage extends ConsumerStatefulWidget {
   const Authpage({super.key});
 
   @override
-  State<Authpage> createState() => AuthpageState();
+  _AuthpageState createState() => _AuthpageState();
 }
 
-class AuthpageState extends State<Authpage> {
+class _AuthpageState extends ConsumerState<Authpage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -50,7 +52,7 @@ class AuthpageState extends State<Authpage> {
                     email: emailController.text,
                     password: passwordController.text,
                   );
-                  await Navigator.of(
+                  Navigator.of(
                     context,
                   ).push(MaterialPageRoute(builder: (context) => AppPage()));
                 } catch (e) {
@@ -59,19 +61,7 @@ class AuthpageState extends State<Authpage> {
               },
               child: Text("SignIn"),
             ),
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  await appwrite.account.deleteSession(sessionId: "current");
-                  await Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute(builder: (context) => AppPage()));
-                } catch (e) {
-                  print("Sign-in error: $e");
-                }
-              },
-              child: Text("SignOut"),
-            ),
+            Text(ref.watch(isAuth)?.email ?? "Does not authenticated"),
           ],
         ),
       ),

@@ -1,8 +1,8 @@
-import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_educational_shop/pages/Authpage.dart';
 import 'package:flutter_educational_shop/pages/MainPage.dart';
-import 'package:flutter_educational_shop/services/appwrite_service.dart';
+import 'package:flutter_educational_shop/features/appwrite_service.dart';
+import 'package:flutter_educational_shop/store/states.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppPage extends ConsumerStatefulWidget {
@@ -12,7 +12,6 @@ class AppPage extends ConsumerStatefulWidget {
   _AppPageState createState() => _AppPageState();
 }
 
-final isAuth = StateProvider<User?>((ref) => null);
 
 class _AppPageState extends ConsumerState<AppPage> {
   bool _isLoading = true;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_educational_shop/pages/KpiCardData.dart';
+import 'package:flutter_educational_shop/pages/KpiDataPage.dart';
 
 class KpiDataCard extends StatelessWidget {
   final String title;
@@ -31,7 +31,7 @@ class KpiDataCard extends StatelessWidget {
         ),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute<void>(
-            builder: (context) => KpiCardData(title: title),
+            builder: (context) => KpiDataPage(title: title),
           ),
         ),
         child: Column(
