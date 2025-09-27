@@ -21,36 +21,18 @@ class _MainPageState extends ConsumerState<MainPage> {
   TextEditingController kpiTitleController = TextEditingController();
   TextEditingController kpiGoalController = TextEditingController();
   List<Row> data = [];
-  List<Row> kpis = [];
 
-  Future<void> getKpis() async {
-    List<Row> kpisData = (await appwrite.getAllKPIs()).cast<Row>();
-    setState(() {
-      kpis = kpisData;
-    });
-  }
-
-  Future<void> clearKPIs() async {
-    setState(() {
-      kpis.clear();
-    });
-  }
-
-  Future<void> getUsers() async {
-    List<Row> users = (await appwrite.getUsers()).cast<Row>();
-    setState(() {
-      data = users;
-    });
-  }
-
-  void clearUsers() {
-    setState(() {
-      data.clear();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getKpis(ref);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<Row> kpis = ref.watch(kpisProvider);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -65,12 +47,6 @@ class _MainPageState extends ConsumerState<MainPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Column(children: data.map((e) => UserDataCard(row: e)).toList()),
-            ElevatedButton(onPressed: getUsers, child: const Text("get users")),
-            SizedBox(height: 10),
-            ElevatedButton(onPressed: clearUsers, child: const Text("clear")),
-            SizedBox(height: 20),
-            SizedBox(height: 20),
             TextField(
               controller: kpiTitleController,
               decoration: const InputDecoration(
@@ -102,16 +78,9 @@ class _MainPageState extends ConsumerState<MainPage> {
                         title: kpiTitleController.text,
                         goal: kpiGoalController.text,
                       );
+                      await getKpis(ref);
                     },
                     child: Text("Create KPI"),
-                  ),
-                  ElevatedButton(
-                    onPressed: getKpis,
-                    child: const Text("get KPIs"),
-                  ),
-                  ElevatedButton(
-                    onPressed: clearKPIs,
-                    child: const Text("clear KPIs"),
                   ),
                 ],
               ),
@@ -124,6 +93,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                       goal: e.data["goal"] ?? "N/A",
                       createdAt: e.$createdAt,
                       updatedAt: e.$updatedAt,
+                      rowID: e.$id,
                     ),
                   )
                   .toList(),

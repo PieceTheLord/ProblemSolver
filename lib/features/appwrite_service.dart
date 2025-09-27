@@ -119,6 +119,16 @@ class AppwriteService {
       throw AppwriteException('Error in appwrite_service.dart in logout $e');
     }
   }
+
+
+  Future<void> deleteCurrentKPI(String rowID) async {
+    try {
+      await tablesDB.deleteRow(databaseId: AppwriteConstants.databaseId, tableId: AppwriteConstants.kpisTableID, rowId: rowID);
+        
+    } on AppwriteException catch(e) {
+      throw AppwriteException('Error in appwrite_service.dart in deleteCurrentKPI -> $e }');
+    }
+  }
 }
 
 final appwrite = AppwriteService();

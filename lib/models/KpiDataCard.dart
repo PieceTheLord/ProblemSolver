@@ -6,6 +6,7 @@ class KpiDataCard extends StatelessWidget {
   final String goal;
   final String createdAt;
   final String updatedAt;
+  final String rowID;
 
   const KpiDataCard({
     super.key,
@@ -13,6 +14,7 @@ class KpiDataCard extends StatelessWidget {
     required this.goal,
     required this.createdAt,
     required this.updatedAt,
+    required this.rowID,
   });
 
   @override
@@ -31,7 +33,7 @@ class KpiDataCard extends StatelessWidget {
         ),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute<void>(
-            builder: (context) => KpiDataPage(title: title),
+            builder: (context) => KpiDataPage(title: title, rowID: rowID,),
           ),
         ),
         child: Column(

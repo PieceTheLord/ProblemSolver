@@ -42,49 +42,52 @@ class _TaskProgressBarState extends State<TaskProgressBar> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: Row(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            IncreaseBar(10);
-                          },
-                          child: Text("10%"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            IncreaseBar(25);
-                          },
-                          child: Text("25%"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            IncreaseBar(25);
-                          },
-                          child: Text("50%"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            IncreaseBar(50);
-                          },
-                          child: Text("50%"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            IncreaseBar(100);
-                          },
-                          child: Text("100%"),
-                        ),
-                      ],
-                    ),
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                        icon: Icon(Icons.close),
+                  return Dialog(
+                    child: SizedBox(
+                      width: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("I have done"),
+                          SizedBox(width: 8), // Add some spacing
+                          SizedBox(
+                            height: 30,
+                            width: 50, // Limit the width of the TextField
+                            child: TextField(
+                              controller: progressBarIcreaseController,
+                              keyboardType:
+                                  TextInputType.number, // Use a number keyboard
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text("%"),
+                          SizedBox(width: 8),
+                          IconButton(
+                            onPressed: () {
+                              IncreaseBar(
+                                int.parse(progressBarIcreaseController.text),
+                              );
+                              progressBarIcreaseController.clear();
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.done),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              progressBarIcreaseController.clear();
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.close),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   );
                 },
               );
