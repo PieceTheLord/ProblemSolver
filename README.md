@@ -1,3 +1,3 @@
-# flutter_educational_shop
+# flutter
 
 A new Flutter project.
