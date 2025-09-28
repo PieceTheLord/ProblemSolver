@@ -3,10 +3,8 @@ import 'package:flutter/material.dart' hide Row;
 import 'package:flutter_educational_shop/pages/ProfilePage.dart';
 import 'package:flutter_educational_shop/ui/ChangeThemeBtn.dart';
 import 'package:flutter_educational_shop/models/KpiDataCard.dart';
-import 'package:flutter_educational_shop/models/ProgressBar.dart';
 import 'package:flutter_educational_shop/ui/SignOut.dart';
 import 'package:flutter_educational_shop/store/states.dart';
-import 'package:flutter_educational_shop/ui/createKPIBtn.dart';
 import 'package:flutter_educational_shop/widgets/createKPIWidget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
