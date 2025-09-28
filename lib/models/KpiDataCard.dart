@@ -22,15 +22,15 @@ class KpiDataCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(8.0),
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          elevation: 2.0,
-          shadowColor: Colors.grey,
-        ),
+        // style: ElevatedButton.styleFrom(
+        //   backgroundColor: Colors.white,
+        //   foregroundColor: Colors.black,
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(10.0),
+        //   ),
+        //   elevation: 2.0,
+        //   shadowColor: Colors.grey,
+        // ),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute<void>(
             builder: (context) => KpiDataPage(title: title, rowID: rowID,),

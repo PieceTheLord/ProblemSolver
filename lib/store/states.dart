@@ -12,3 +12,6 @@ Future<void> getKpis(WidgetRef ref) async {
   List<Row> kpisData = (await appwrite.getAllKPIs()).cast<Row>();
   ref.read(kpisProvider.notifier).state = kpisData;
 }
+
+final kpiTitleProvider = StateProvider<String>((ref) => '');
+final kpiGoalProvider = StateProvider<String>((ref) => '');
