@@ -10,11 +10,17 @@ class CreateKPIBtn extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final title = ref.watch(kpiTitleProvider);
     final goal = ref.watch(kpiGoalProvider);
-
+    final user = ref.watch(isAuth);
     return ElevatedButton(
       onPressed: () async {
-        await appwrite.insertKpiData(title: title, goal: goal);
+        await appwrite.insertKpiData(
+          title: title,
+          goal: goal,
+          email: user!.email,
+        );
         await getKpis(ref);
+        //! Risky functional
+        Navigator.pop(context);
       },
       child: Text("Create KPI"),
     );

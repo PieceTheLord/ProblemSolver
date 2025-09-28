@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Row;
+import 'package:flutter/widgets.dart';
 import 'package:flutter_educational_shop/pages/AppPage.dart';
 import 'package:flutter_educational_shop/features/appwrite_service.dart';
 import 'package:flutter_educational_shop/store/states.dart';
@@ -25,44 +26,64 @@ class _AuthpageState extends ConsumerState<Authpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                labelText: "Email",
-                border: OutlineInputBorder(),
+      body: Center(
+        child: SizedBox(
+          width: 400,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  labelText: "Email",
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                labelText: "Password",
-                border: OutlineInputBorder(),
+              SizedBox(height: 10),
+              TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  labelText: "Password",
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  await appwrite.signIn(
-                    email: emailController.text,
-                    password: passwordController.text,
-                  );
-                  Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute(builder: (context) => AppPage()));
-                } catch (e) {
-                  print("Sign-in error: $e");
-                }
-              },
-              child: Text("SignIn"),
-            ),
-            Text(ref.watch(isAuth)?.email ?? "Does not authenticated"),
-          ],
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      await appwrite.SignUp(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => AppPage()),
+                      );
+                    },
+                    child: Text("Sign up"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        await appwrite.LogIn(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => AppPage()),
+                        );
+                      } catch (e) {
+                        print("Sign-in error: $e");
+                      }
+                    },
+                    child: Text("Log in"),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

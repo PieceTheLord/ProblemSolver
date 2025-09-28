@@ -35,12 +35,13 @@ class AppwriteService {
     );
   }
 
-  Future getAllKPIs() async {
+  Future getAllKPIs({required String email}) async {
     final req = await tablesDB.listRows(
       databaseId: AppwriteConstants.databaseId,
       tableId: AppwriteConstants.kpisTableID,
       queries: [
         Query.select(['title', 'goal']),
+        Query.equal('email', email),
       ],
     );
     return req.rows;
@@ -61,13 +62,14 @@ class AppwriteService {
   Future<void> insertKpiData({
     required String title,
     required String goal,
+    required String email,
   }) async {
     try {
       await tablesDB.createRow(
         databaseId: AppwriteConstants.databaseId,
         tableId: AppwriteConstants.kpisTableID,
         rowId: ID.unique(),
-        data: {"title": title, "goal": goal},
+        data: {"title": title, "goal": goal, "email": email},
       );
     } on AppwriteException catch (e) {
       throw AppwriteException("Appwrite Error while inserting KPi data -> $e");
@@ -101,7 +103,7 @@ class AppwriteService {
     }
   }
 
-  Future<void> signIn({required String email, required String password}) async {
+  Future<void> LogIn({required String email, required String password}) async {
     try {
       await account.createEmailPasswordSession(
         email: email,
@@ -109,6 +111,20 @@ class AppwriteService {
       );
     } on Exception catch (e) {
       throw Exception("Session not created! $e");
+    }
+  }
+
+  Future<void> SignUp({required String email, required String password}) async {
+    try {
+      await account.create(
+        userId: ID.unique(),
+        email: email,
+        password: password,
+      );
+    } on AppwriteException catch (e) {
+      throw AppwriteException(
+        'Error in appwrite_service.dart in SignUp -> $e }',
+      );
     }
   }
 
@@ -120,13 +136,17 @@ class AppwriteService {
     }
   }
 
-
   Future<void> deleteCurrentKPI(String rowID) async {
     try {
-      await tablesDB.deleteRow(databaseId: AppwriteConstants.databaseId, tableId: AppwriteConstants.kpisTableID, rowId: rowID);
-        
-    } on AppwriteException catch(e) {
-      throw AppwriteException('Error in appwrite_service.dart in deleteCurrentKPI -> $e }');
+      await tablesDB.deleteRow(
+        databaseId: AppwriteConstants.databaseId,
+        tableId: AppwriteConstants.kpisTableID,
+        rowId: rowID,
+      );
+    } on AppwriteException catch (e) {
+      throw AppwriteException(
+        'Error in appwrite_service.dart in deleteCurrentKPI -> $e }',
+      );
     }
   }
 }

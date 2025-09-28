@@ -35,17 +35,11 @@ class _MainPageState extends ConsumerState<MainPage> {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Create New KPI"),
-                content: CreateKPIWidget(),
-                actions: [
-                  TextButton(
-                    child: Text("Close"),
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
-                    },
-                  ),
-                ],
+              return Dialog(
+                child: SizedBox(
+                  height: 210,
+                  child: Center(child: CreateKPIWidget()),
+                ),
               );
             },
           );

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_educational_shop/pages/Authpage.dart';
-import 'package:flutter_educational_shop/features/appwrite_service.dart';
+import 'package:flutter_educational_shop/store/states.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignOut extends StatelessWidget {
+class SignOut extends ConsumerWidget {
   const SignOut({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
       onPressed: () async {
         try {
-          await appwrite.account.deleteSession(sessionId: "current");
+          await signOut(ref);
           await Navigator.of(
             context,
           ).push(MaterialPageRoute(builder: (context) => Authpage()));

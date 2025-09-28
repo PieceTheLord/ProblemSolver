@@ -9,6 +9,7 @@ class CreateKPIWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
+      padding: EdgeInsetsGeometry.all(10.0),
       child: Column(
         children: [
           TextField(
